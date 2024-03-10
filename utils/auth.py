@@ -1,40 +1,16 @@
-import secrets
-from typing import Annotated
 
-from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from functools import wraps
+from fastapi import Request, HTTPException, status
 
 
-security = HTTPBasic()
-
-
-def get_current_username(
-    credentials: Annotated[HTTPBasicCredentials, Depends(security)]
+def get_current_user(
+        request: Request
 ):
-    current_username_bytes = credentials.username.encode("utf8")
-    correct_username_bytes = b"stanleyjobson"
-    is_correct_username = secrets.compare_digest(
-        current_username_bytes, correct_username_bytes
-    )
-    current_password_bytes = credentials.password.encode("utf8")
-    correct_password_bytes = b"swordfish"
-    is_correct_password = secrets.compare_digest(
-        current_password_bytes, correct_password_bytes
-    )
-    if not (is_correct_username and is_correct_password):
+    username = request.cookies.get("username")
+
+    if username is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Basic"},
+            detail="Not authenticated",
         )
-    return credentials.username
 
-
-def auth_required(func):
-    @wraps(func)
-    async def wrapper(*args, **kwargs):
-
-        kwargs["username"] = "test-user"
-        return func(*args, **kwargs)  # DO NOT WAIT
-    return wrapper
+    return {"username": username}
