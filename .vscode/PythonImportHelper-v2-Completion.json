@@ -1,0 +1,209 @@
+[
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Response",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPBasic",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPBasicCredentials",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPBasic",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPBasicCredentials",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "get_current_username",
+        "importPath": "utils.auth",
+        "description": "utils.auth",
+        "isExtraImport": true,
+        "detail": "utils.auth",
+        "documentation": {}
+    },
+    {
+        "label": "HTMLResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "templates",
+        "importPath": "settings",
+        "description": "settings",
+        "isExtraImport": true,
+        "detail": "settings",
+        "documentation": {}
+    },
+    {
+        "label": "user_router",
+        "importPath": "modules.users.router",
+        "description": "modules.users.router",
+        "isExtraImport": true,
+        "detail": "modules.users.router",
+        "documentation": {}
+    },
+    {
+        "label": "secrets",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "secrets",
+        "description": "secrets",
+        "detail": "secrets",
+        "documentation": {}
+    },
+    {
+        "label": "Annotated",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "wraps",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "uvicorn",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uvicorn",
+        "description": "uvicorn",
+        "detail": "uvicorn",
+        "documentation": {}
+    },
+    {
+        "label": "user_router",
+        "kind": 5,
+        "importPath": "modules.users.router",
+        "description": "modules.users.router",
+        "peekOfCode": "user_router = APIRouter(tags=[\"User\"])\n@user_router.get(\"/profile-data\")\nasync def read_item(credentials: HTTPBasicCredentials = Depends(get_current_username)):\n    return {\"username\": credentials.username, \"password\": credentials.password}\n@user_router.get(\"/profile\", response_class=HTMLResponse)\nasync def read_item(request: Request):\n    return templates.TemplateResponse(\n        request=request, name=\"users/profile.html\", context={\"username\": \"Rafiqul\"}\n    )\n@user_router.post(\"/profile/{username}\")",
+        "detail": "modules.users.router",
+        "documentation": {}
+    },
+    {
+        "label": "root_router",
+        "kind": 5,
+        "importPath": "settings.routes",
+        "description": "settings.routes",
+        "peekOfCode": "root_router = APIRouter()\n@root_router.get(\"/\")\nasync def read_root():\n    return {\"message\": \"Hello World\"}\nroot_router.include_router(user_router)",
+        "detail": "settings.routes",
+        "documentation": {}
+    },
+    {
+        "label": "get_current_username",
+        "kind": 2,
+        "importPath": "utils.auth",
+        "description": "utils.auth",
+        "peekOfCode": "def get_current_username(\n    credentials: Annotated[HTTPBasicCredentials, Depends(security)]\n):\n    current_username_bytes = credentials.username.encode(\"utf8\")\n    correct_username_bytes = b\"stanleyjobson\"\n    is_correct_username = secrets.compare_digest(\n        current_username_bytes, correct_username_bytes\n    )\n    current_password_bytes = credentials.password.encode(\"utf8\")\n    correct_password_bytes = b\"swordfish\"",
+        "detail": "utils.auth",
+        "documentation": {}
+    },
+    {
+        "label": "auth_required",
+        "kind": 2,
+        "importPath": "utils.auth",
+        "description": "utils.auth",
+        "peekOfCode": "def auth_required(func):\n    @wraps(func)\n    async def wrapper(*args, **kwargs):\n        kwargs[\"username\"] = \"test-user\"\n        return func(*args, **kwargs)  # DO NOT WAIT\n    return wrapper",
+        "detail": "utils.auth",
+        "documentation": {}
+    },
+    {
+        "label": "security",
+        "kind": 5,
+        "importPath": "utils.auth",
+        "description": "utils.auth",
+        "peekOfCode": "security = HTTPBasic()\ndef get_current_username(\n    credentials: Annotated[HTTPBasicCredentials, Depends(security)]\n):\n    current_username_bytes = credentials.username.encode(\"utf8\")\n    correct_username_bytes = b\"stanleyjobson\"\n    is_correct_username = secrets.compare_digest(\n        current_username_bytes, correct_username_bytes\n    )\n    current_password_bytes = credentials.password.encode(\"utf8\")",
+        "detail": "utils.auth",
+        "documentation": {}
+    }
+]
